@@ -10,7 +10,7 @@ Connect to Postgres DB:
 $ docker exec -it lenslocked_db_1 /usr/bin/psql -U nahua -d lenslocked
 ```
 
-## SQL
+## SQL Notes
 
 Commands typically look like:
 
@@ -28,12 +28,49 @@ CREATE TABLE table_name (
     id SERIAL PRIMARY_KEY,
     email VARCHAR(255) UNIQUE
 );
+```
 
-CREATE TABLE users (
+### SQL Basics
+
+Create `users` Table:
+
+```shell
+$ docker exec -it lenslocked_db_1 psql  -U nahua -d lenslocked
+
+lenslocked=# DROP TABLE IF EXISTS users;
+NOTICE:  table "users" does not exist, skipping
+DROP TABLE
+
+lenslocked=#  CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     age INT,
     first_name TEXT,
     last_name TEXT,
     email TEXT UNIQUE NOT NULL
 );
+CREATE TABLE
+```
+
+Insert into `users` Table:
+
+```sql
+INSERT INTO users (age, email, first_name, last_name) VALUES (31, 'nade@kang.io', 'Nade', 'Kang');
+```
+
+Query for records:
+
+```sql
+SELECT * FROM users WHERE age > 20;
+```
+
+Update records:
+
+```sql
+UPDATE users SET first_name = 'Johnny', last_name = 'Appleseed' WHERE id=4;
+```
+
+Delete records:
+
+```sql
+DELETE FROM users WHERE id=1;
 ```
